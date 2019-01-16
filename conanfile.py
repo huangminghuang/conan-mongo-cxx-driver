@@ -4,10 +4,13 @@ import os
 class MongocxxdriverConan(ConanFile):
     name = "mongo-cxx-driver"
     version = "3.4.0"
-    url = "http://github.com/bincrafters/conan-mongo-cxx-driver"
     description = "C++ Driver for MongoDB"
     topics = ("conan", "libmongocxx", "mongodb")
-    license = "https://github.com/mongodb/mongo-cxx-driver/blob/{0}/LICENSE".format(version)
+    url = "http://github.com/huangminghuang/conan-mongo-cxx-driver"
+    homepage = "https://github.com/mongodb/mongo-cxx-driver"
+    author = "Huang-Ming Huang <huangh@objectcomputing.com>"
+    license = "MIT"
+    exports = ["LICENSE"]
     settings = "os", "compiler", "arch", "build_type"
     
     options = {"shared": [True, False]}
@@ -46,6 +49,7 @@ conan_basic_setup()''')
         self._configure_cmake().build()
 
     def package(self):
+        self.copy(pattern="LICENSE", dst="licenses", src="sources")
         CMake(self).install()
 
     def package_info(self):

@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS |
 |:--------:|:---------:|:-----------------:|
-|[![Download](https://api.bintray.com/packages/huangminghuang/conan/mongo-cxx-driver%3Ahuangminghuang/images/download.svg) ](https://bintray.com/huangminghaung/conan/mongo-cxx-driver%3Ahuangminghuang/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/huangminghuang/conan-mongo-cxx-driver?svg=true)](https://ci.appveyor.com/project/huangminghuang/conan-mongo-cxx-driver)|[![Build Status](https://travis-ci.com/huangminghuang/conan-mongo-cxx-driver.svg?branch=master)](https://travis-ci.org/huangminghuang/conan-mongo-cxx-driver)|
+|[![Download](https://api.bintray.com/packages/huangminghuang/conan/mongo-cxx-driver%3Ahuangminghuang/images/download.svg) ](https://bintray.com/huangminghaung/conan/mongo-cxx-driver%3Ahuangminghuang/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/huangminghuang/conan-mongo-cxx-driver?svg=true)](https://ci.appveyor.com/project/huangminghuang/conan-mongo-cxx-driver)|[![Build Status](https://travis-ci.com/huangminghuang/conan-mongo-cxx-driver.svg?branch=master)](https://travis-ci.com/huangminghuang/conan-mongo-cxx-driver)|
 
 
 ## Basic setup
