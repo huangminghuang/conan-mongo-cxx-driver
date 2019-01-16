@@ -1,14 +1,14 @@
 
 env:
    global:
-     - CONAN_REFERENCE: "mongo-cxx-driver/3.3.0"
+     - CONAN_REFERENCE: "mongo-cxx-driver/3.4.0"
      - CONAN_USERNAME: "huangminghuang"
      - CONAN_LOGIN_USERNAME: "huangminghuang"
      - CONAN_CHANNEL: "stable"
      - CONAN_UPLOAD: "https://api.bintray.com/conan/huangminghuang/conan"
      - CONAN_STABLE_BRANCH_PATTERN: "release/*"
      - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1 # Will only upload when the branch matches "release/*"
-          
+     - CONAN_REMOTES: "https://api.bintray.com/conan/huangminghuang/conan"
 linux: &linux
    os: linux
    dist: xenial
