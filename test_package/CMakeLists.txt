@@ -4,6 +4,10 @@ project(PackageTest CXX)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+if (CONAN_SETTINGS_ARCH STREQUAL "x86")
+  set(CMAKE_SIZEOF_VOID_P 4)
+endif()
+
 if(NOT DEFINED CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 11)
 endif()

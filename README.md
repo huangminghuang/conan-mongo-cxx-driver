@@ -8,7 +8,7 @@
 ## Basic setup
 
     $ conan remote add huang https://api.bintray.com/conan/huangminghuang/conan 
-    $ conan install mongo-cxx-driver/3.4.0@huangminghuang/stable -r huang
+    $ conan install mongo-cxx-driver/3.4.0@huangminghuang/stable
     
 ## Project setup
 
