@@ -39,6 +39,9 @@ conan_basic_setup()''')
         tools.replace_in_file("sources/src/mongocxx/CMakeLists.txt", "add_subdirectory(test)", "")
         tools.replace_in_file("sources/src/bsoncxx/CMakeLists.txt", "add_subdirectory(test)", "")
         
+        # fix compiling problem on linux for clang++ with libc++
+        tools.replace_in_file("sources/src/mongocxx/options/change_stream.cpp", "auto count", "std::int64_t count")
+        
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"] = "ON" if self.options.shared else "OFF"
