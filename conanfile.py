@@ -23,7 +23,11 @@ class MongocxxdriverConan(ConanFile):
     
     def configure(self):
         self.options["mongo-c-driver"].shared = self.options.shared
-
+        
+    def requirements(self):
+        if self.settings.os == "Windows":
+            self.requires("boost/[>= 1.67.0]@conan/stable")
+            
     def source(self):
         tools.get("https://github.com/mongodb/mongo-cxx-driver/archive/r{0}.tar.gz".format(self.version))
         extracted_dir = "mongo-cxx-driver-r{0}".format(self.version)
