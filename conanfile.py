@@ -60,7 +60,7 @@ conan_basic_setup()''')
         CMake(self).install()
 
     def package_info(self):
-        lib_suffix = "" if self.options["shared"] else "-static"
+        lib_suffix = "" if self.options.shared else "-static"
 
         libnames = ['mongocxx', 'bsoncxx']
         self.cpp_info.libs = [ "{}{}".format(name, lib_suffix) for name in libnames ]
