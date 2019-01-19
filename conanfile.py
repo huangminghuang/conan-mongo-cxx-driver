@@ -65,5 +65,9 @@ conan_basic_setup()''')
         libnames = ['mongocxx', 'bsoncxx']
         self.cpp_info.libs = [ "{}{}".format(name, lib_suffix) for name in libnames ]
         self.cpp_info.includedirs.extend( ['include/{}/v_noabi'.format(name) for name in libnames ] )
+        
+        if self.settings.os == "Windows":
+            self.cpp_info.libs.append('boost')
+            
         if not self.options.shared:
             self.cpp_info.defines.extend(['BSONCXX_STATIC', 'MONGOCXX_STATIC'])
