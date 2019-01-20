@@ -25,8 +25,8 @@ class MongocxxdriverConan(ConanFile):
         self.options["mongo-c-driver"].shared = self.options.shared
         
     def requirements(self):
-        # if self.settings.os == "Windows":
-        self.requires("boost/[>= 1.67.0]@conan/stable")
+        if self.settings.os == "Windows":
+            self.requires("boost/[>= 1.67.0]@conan/stable")
             
     def source(self):
         tools.get("https://github.com/mongodb/mongo-cxx-driver/archive/r{0}.tar.gz".format(self.version))
@@ -63,11 +63,15 @@ if (@BSONCXX_POLY_USE_BOOST@)
 endif()
 
 # We want to''')
+
+        if self.settings.os == "Windows":
+            tools.replace_in_file("sources/src/bsoncxx/builder/core.cpp", "#include <bsoncxx/builder/core.hpp>", '''
+#define _DISABLE_EXTENDED_ALIGNED_STORAGE
+#include <bsoncxx/builder/core.hpp>''')
         
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"] = "ON" if self.options.shared else "OFF"
-        cmake.definitions['BSONCXX_POLY_USE_BOOST'] = "ON"
         cmake.configure(source_dir=os.path.join(self.source_folder,"sources"))
         return cmake
 
