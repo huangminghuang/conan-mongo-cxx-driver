@@ -25,8 +25,8 @@ class MongocxxdriverConan(ConanFile):
         self.options["mongo-c-driver"].shared = self.options.shared
         
     def requirements(self):
-        if self.settings.os == "Windows":
-            self.requires("boost/[>= 1.67.0]@conan/stable")
+        # if self.settings.os == "Windows":
+        self.requires("boost/[>= 1.67.0]@conan/stable")
             
     def source(self):
         tools.get("https://github.com/mongodb/mongo-cxx-driver/archive/r{0}.tar.gz".format(self.version))
@@ -46,9 +46,28 @@ conan_basic_setup()''')
         # fix compiling problem on linux for clang++ with libc++
         tools.replace_in_file("sources/src/mongocxx/options/change_stream.cpp", "auto count", "std::int64_t count")
         
+        tools.replace_in_file("sources/src/bsoncxx/cmake/libbsoncxx-config.cmake.in", "# We want to", '''
+        
+if (@BSONCXX_POLY_USE_BOOST@)
+  find_package(Boost REQUIRED)
+  set(LIBBSONCXX_INCLUDE_DIRS ${LIBBSONCXX_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+endif()
+
+# We want to''')
+
+        tools.replace_in_file("sources/src/bsoncxx/cmake/libbsoncxx-static-config.cmake.in", "# We want to", '''
+        
+if (@BSONCXX_POLY_USE_BOOST@)
+  find_package(Boost REQUIRED)
+  set(LIBBSONCXX_STATIC_INCLUDE_DIRS ${LIBBSONCXX_STATIC_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+endif()
+
+# We want to''')
+        
     def _configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"] = "ON" if self.options.shared else "OFF"
+        cmake.definitions['BSONCXX_POLY_USE_BOOST'] = "ON"
         cmake.configure(source_dir=os.path.join(self.source_folder,"sources"))
         return cmake
 
@@ -65,9 +84,6 @@ conan_basic_setup()''')
         libnames = ['mongocxx', 'bsoncxx']
         self.cpp_info.libs = [ "{}{}".format(name, lib_suffix) for name in libnames ]
         self.cpp_info.includedirs.extend( ['include/{}/v_noabi'.format(name) for name in libnames ] )
-        
-        if self.settings.os == "Windows":
-            self.cpp_info.libs.append('boost')
             
         if not self.options.shared:
             self.cpp_info.defines.extend(['BSONCXX_STATIC', 'MONGOCXX_STATIC'])
